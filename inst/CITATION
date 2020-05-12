@@ -1,0 +1,15 @@
+citHeader("To cite package RArcInfo in publications use:")
+
+citEntry(entry="Article",
+  author       = "V. Gómez-Rubio and A. López-Quílez",
+  title        = "RArcInfo: Using GIS data with R",
+  journal      = "Computers \\& Geosciences",
+  year         = 2005,
+  volume       = 31,
+  number       = 8,
+  pages        = "1000-1006",
+  month        = "october",
+  textVersion = 
+  paste("V. Gómez-Rubio and A. López-Quílez (2005). RArcInfo: Using GIS data with R.",
+	"Computers & Geosciences 3(8), 1000-1006.")
+)

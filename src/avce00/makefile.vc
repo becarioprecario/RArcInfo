@@ -1,0 +1,87 @@
+#
+# makefile.vc - AVCE00 library makefile
+#
+# This VC++ makefile will build AVCE00.LIB and CPL.LIB, and also build the
+# "AVCIMPORT" and "AVCEXPORT" programs.
+#
+# To use the makefile:
+#  - Open a DOS prompt window
+#  - Run the VCVARS32.BAT script to initialize the VC++ environment variables
+#  - Start the build with:  nmake /f makefile.vc
+#
+# $Id: makefile.vc,v 1.1.1.1 2001/06/27 20:10:57 vir Exp $
+#
+
+
+INC	=	
+OPTFLAGS=	/Zi /nologo /W3
+
+CFLAGS	=	-DWIN32 $(OPTFLAGS) $(INC) $(EXTRAFLAGS)
+MAKE	=	nmake /nologo
+
+CC	=	cl
+
+#
+# Define 2 libraries: 
+#  $(AVCLIB) contains all the stuff specific to reading/writing coverages
+#  $(CPLLIB) contains utility functions shared by several libraries
+#
+AVCLIB	=	avce00.lib
+AVC_OBJS= 	avc_e00read.obj avc_e00write.obj avc_rawbin.obj avc_bin.obj \
+	  	avc_binwr.obj avc_e00gen.obj avc_e00parse.obj avc_misc.obj
+AVC_HDRS= 	avc.h
+
+CPLLIB	= 	cpl.lib
+CPL_OBJS= 	cpl_error.obj cpl_conv.obj cpl_vsisimple.obj cpl_string.obj \
+	  	cpl_dir.obj
+CPL_HDRS=	cpl_conv.h cpl_port.h cpl_error.h cpl_string.h cpl_vsi.h
+
+LIBS	=	$(AVCLIB) $(CPLLIB)
+
+default: $(LIBS) avcimport.exe avcexport.exe avctest.exe avcdelete.exe \
+		 ex_avcwrite.exe
+
+$(AVC_OBJS): $(AVC_HDRS) $(CPL_HDRS)
+
+$(AVCLIB):	$(AVC_OBJS)
+	lib /out:$(AVCLIB) $(AVC_OBJS)
+
+$(CPL_OBJS): $(CPL_HDRS)
+
+$(CPLLIB):	$(CPL_OBJS)
+	lib /out:$(CPLLIB) $(CPL_OBJS)
+
+avcimport.exe:	avcimport.c $(LIBS)
+	$(CC) $(CFLAGS) avcimport.c $(LIBS)
+
+avcexport.exe:	avcexport.c $(LIBS)
+	$(CC) $(CFLAGS) avcexport.c $(LIBS)
+
+avcdelete.exe:	avcdelete.c $(LIBS)
+	$(CC) $(CFLAGS) avcdelete.c $(LIBS)
+
+avctest.exe:	avctest.c $(LIBS)
+	$(CC) $(CFLAGS) avctest.c $(LIBS)
+
+ex_avcwrite.exe: ex_avcwrite.c $(LIBS)
+	$(CC) $(CFLAGS) ex_avcwrite.c $(LIBS)
+
+testmulti.exe:	testmulti.c $(LIBS)
+	$(CC) $(CFLAGS) testmulti.c commode.obj $(LIBS)
+
+clean:
+	del *.obj
+	del $(AVCLIB)
+	del $(CPLLIB)
+	del *.exe
+	del *.pdb
+	del *.exp
+	del *.ilk
+
+.c.obj:	
+	$(CC) $(CFLAGS) /c $*.c
+
+.cpp.obj:	
+	$(CC) $(CFLAGS) /c $*.cpp
+
+
