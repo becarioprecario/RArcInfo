@@ -1,13 +1,14 @@
 Package: RArcInfo
-Version: 0.4-12
-Date: 2011-11-06
+Version: 0.4-13
+Date: 2020-05-13
 Encoding: latin1
-Title: Functions to import data from Arc/Info V7.x binary coverages
-Author: Virgilio Gómez-Rubio <virgilio.gomez@uv.es>
-Maintainer: Virgilio Gómez-Rubio <virgilio.gomez@uv.es>
+Title: Functions to Import Data from Arc/Info V7.x Binary Coverages
+Authors@R: c(person("Virgilio", "Gómez-Rubio", role = c("cre", "aut"), email = "virgilio.gomez@uclm.es"),
+	person("Roger", "Bivand", role = c("ctb"), email = "Roger.Bivand@nhh.no", comment=c(ORCID="0000-0003-2392-6140")),
+        person("Daniel", "Morissette", role = "aut"))
 Depends: R (>= 2.3.0), RColorBrewer
-Description: This package uses the functions written by Daniel 
+Description: Functions written by Daniel 
  Morissette <danmo@videotron.ca> to read geographical information in Arc/Info 
  V 7.x format and E00 files to import the coverages into R variables.
-License: GPL version 2 or later
-URL:http://sourceforge.net/projects/rarcinfo/,http://avce00.maptools.org/docs/v7_bin_cover.html
+License: GPL (>= 2)
+URL:https://github.com/becarioprecario/RArcInfo,http://avce00.maptools.org/docs/v7_bin_cover.html

@@ -15,7 +15,7 @@
 #define PATH 257 /*The length of an array containing a path*/
 
 
-SEXP get_names_of_coverages(SEXP directory);
+//SEXP get_names_of_coverages(SEXP directory);
 SEXP get_table_names(SEXP directory);
 SEXP get_table_fields(SEXP info_dir, SEXP table_name);
 SEXP get_arc_data(SEXP directory, SEXP coverage, SEXP filename) ;

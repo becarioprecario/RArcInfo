@@ -163,28 +163,28 @@ AVCBinFile *AVCBinWriteCreate(const char *pszPath, const char *pszName,
         ( (nLen>=4 && EQUALN((pszExt=pszFname+nLen-3)-1, ".arc", 4)) ||
           (nLen>=7 && EQUALN((pszExt=pszFname+nLen-7), "arc.adf", 7)) ) )
     {
-        strncpy(pszExt, "arx", 3);
+        memcpy(pszExt, "arx", 3);
         bCreateIndex = TRUE;
     }
     else if ((eType == AVCFilePAL || eType == AVCFileRPL) &&
              ( (nLen>=4 && EQUALN((pszExt=pszFname+nLen-3)-1, ".pal", 4)) ||
                (nLen>=7 && EQUALN((pszExt=pszFname+nLen-7), "pal.adf", 7)) ) )
     {
-        strncpy(pszExt, "pax", 3);
+        memcpy(pszExt, "pax", 3);
         bCreateIndex = TRUE;
     }
     else if (eType == AVCFileCNT &&
              ( (nLen>=4 && EQUALN((pszExt=pszFname+nLen-3)-1, ".cnt", 4)) ||
                (nLen>=7 && EQUALN((pszExt=pszFname+nLen-7), "cnt.adf", 7)) ) )
     {
-        strncpy(pszExt, "cnx", 3);
+        memcpy(pszExt, "cnx", 3);
         bCreateIndex = TRUE;
     }
     else if ((eType == AVCFileTXT || eType == AVCFileTX6) &&
              ( (nLen>=4 && EQUALN((pszExt=pszFname+nLen-3)-1, ".txt", 4)) ||
                (nLen>=7 && EQUALN((pszExt=pszFname+nLen-7), "txt.adf", 7)) ) )
     {
-        strncpy(pszExt, "txx", 3);
+        memcpy(pszExt, "txx", 3);
         bCreateIndex = TRUE;
     }
 
@@ -1450,7 +1450,8 @@ AVCBinFile *AVCBinWriteCreateTable(const char *pszInfoPath,
         return NULL;
     }
 
-    sprintf(szInfoFile, "arc%4.4d", nTableIndex);
+/*    sprintf(szInfoFile, "arc%4.4d", nTableIndex);*/
+    snprintf(szInfoFile, sizeof(szInfoFile), "arc%4.4d", nTableIndex);
 
     /*-----------------------------------------------------------------
      * Create the "arc####.nit" with the attribute definitions.
@@ -1536,21 +1537,27 @@ AVCBinFile *AVCBinWriteCreateTable(const char *pszInfoPath,
                 (EQUAL(szExt, "TIC") || EQUAL(szExt, "BND")) )
             {
                 /* "../<covername>/dbl<ext>.adf" */
-                sprintf(psTableDef->szDataFile, 
+/*                sprintf(psTableDef->szDataFile, 
+                        "../%s/dbl%s.adf", szCoverName, szExt);*/
+                snprintf(psTableDef->szDataFile, sizeof(psTableDef->szDataFile),
                         "../%s/dbl%s.adf", szCoverName, szExt);
             }
             else
             {
                 /* "../<covername>/<ext>.adf" */
-                sprintf(psTableDef->szDataFile, 
+                snprintf(psTableDef->szDataFile, sizeof(psTableDef->szDataFile),
                         "../%s/%s.adf", szCoverName, szExt);
+/*                sprintf(psTableDef->szDataFile, 
+                        "../%s/%s.adf", szCoverName, szExt);*/
             }
         }
         else
         {
             /* "../<covername>/<subclass>.<ext>" */
-            sprintf(psTableDef->szDataFile, 
+            snprintf(psTableDef->szDataFile, sizeof(psTableDef->szDataFile),
                     "../%s/%s.%s", szCoverName, szSubclass, szExt);
+/*            sprintf(psTableDef->szDataFile, 
+                    "../%s/%s.%s", szCoverName, szSubclass, szExt);*/
         }
 
         /*-------------------------------------------------------------
