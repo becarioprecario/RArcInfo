@@ -7,3 +7,4 @@ exportPattern(".")
 import(
   RColorBrewer
 )
+importFrom("graphics", "lines", "par", "polygon")

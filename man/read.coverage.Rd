@@ -60,7 +60,7 @@ as returned by get.tablenames.}
 
 \references{
 More information about this kind of data can be found at
-\url{http://pages.infinit.net/danmo/e00/docs/v7_bin_cover.html}.
+\url{http://avce00.maptools.org/}.
 }
 
 \keyword{file}
